@@ -1,0 +1,250 @@
+body {
+	margin: 0;
+	padding: 0;
+	
+	
+}
+#Holder {
+	width: 1500px;
+	Height: auto;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 21px;
+	margin-bottom: 21px;
+}
+#Header{
+	Height: 70px;
+	background-image: url(../Images/logo.png);
+	background-repeat: no-repeat;
+	margin-bottom: 11px;
+	
+}
+#NavBar{
+	height: 55px;
+	background-color: rgb(13,13,13);
+	width: auto;
+}
+
+
+
+
+#Content{
+	height:auto;
+	min-height: 800px;
+	clear:both;
+	overflow:auto;
+	text-align: center;
+	background-image: url(../Images/Concrete.png);
+	background-repeat: repeat;
+}
+
+#Footer{
+	background-color: transparent;
+	height:auto;
+	color: black;
+	text-align: center;
+}
+h1 {
+	margin:0;
+	font-family: Arial, Helvetica, sans-serif;
+	color: grey;
+	font-weight:lighter;
+        font-style:bold;
+	
+}
+h2 {
+  margin-top:10px;		
+  font-family: Arial, Helvetica, sans-serif;
+  color: #2b2b2b;
+  text-shadow: 3px 3px 0px rgba(0,0,0,0.1), 7px 7px 0px rgba(0,0,0,0.05);
+}
+	
+}
+h3{
+		
+  
+  font-family:cursive;
+  color: #2b2b2b;
+  text-shadow: 3px 3px 0px rgba(0,0,0,0.1), 7px 7px 0px rgba(0,0,0,0.05);
+	
+}
+#AssHeading
+{
+	
+	font-size: 45px;
+	margin:0 auto;
+	font-family: Arial, Helvetica, sans-serif;
+	color: grey;
+	font-weight:lighter;
+        font-style:bold;
+	
+	
+}
+
+
+
+/*
+=================================TO DO LIST STYLE==============================================
+*/
+
+#form1 {
+margin: 0 auto;	
+width:auto;
+height:auto;
+min-width:400px;
+min-height:450px;	
+display: inline-block;
+font-family: Arial, Helvetica, sans-serif;
+background-color:rgb(0,0,0.3);
+left:25px;	
+padding: 10px;
+    border: 1px solid grey;
+    box-shadow:  -1px 1px grey,
+         -2px 2px grey,
+         -3px 3px grey,
+         -4px 4px grey,
+         -5px 5px grey;
+}
+
+
+#button{
+display: inline-block;
+background-color:#fc999b;
+color:#ffffff;
+border-radius: 5px;
+text-align:center; 	
+margin-top:2px;
+padding: 5px 15px;
+position:relative;
+}
+
+#button:hover{
+cursor: pointer;
+opacity: .8;}
+
+ol {padding-left: 20px;
+list-style-type:none;
+}
+	
+ol li {padding: 5px;
+		color:#000;
+		list-style-type:none;
+}
+
+ol li:nth-child(even){background: grey;
+					  color: white;}
+
+.strike{text-decoration: line-through;}
+
+li:hover{
+  cursor: pointer;
+ }
+
+ /*
+ ============================================================================================
+ */
+ 
+ input[type=text] {
+    width: auto;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+    background-image: url('../Images/searchicon.png');
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 40px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
+
+
+#userDetails{
+	font-size: 15px;
+	margin: auto;
+    width: 50%;
+    border: 3px solid grey;
+	border-top: none;
+	border-bottom:none;
+    padding: 10px;
+	background-color:rgba(0,0,0,.1);
+	text-align: center;
+	border-radius:20px;
+	font-family: Arial, Helvetica, sans-serif;
+
+}
+
+
+	
+#btnLogout {
+  right:36px;
+  height:60px;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: rgb(13,13,13);
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 24px;
+  padding: 20px;
+  width: 200px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+  position:absolute;
+  top:40px;
+}
+
+#btnLogout span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+#btnLogout span:after {
+  content: url('../Images/power.png');
+  position: absolute;
+  opacity: 0;
+  top: 10px;
+  bottom:10px;
+  right: -50px;
+  transition: 0.5s;
+}
+
+#btnLogout:hover span {
+  padding-right: 35px;
+  color:transparent;
+  background-color:transparent;
+}
+
+#btnLogout:hover span:after {
+  opacity: 1;
+  right: 29px;
+  
+}
+
+#assignments{
+	font-size:35px;
+	display: inline-block;
+	font-family: Arial, Helvetica, sans-serif;
+  color: #2b2b2b;
+  text-shadow: 3px 3px 0px rgba(0,0,0,0.1), 7px 7px 0px rgba(0,0,0,0.05); 
+  
+	
+}
+#showAss{
+display: inline-block;
+background-color:#fc999b;
+color:#ffffff;
+border-radius: 5px;
+text-align:center; 	
+margin-top:2px;
+padding: 5px 15px;
+position:relative;
+}
+
+#button:hover{
+cursor: pointer;
+opacity: .8;}

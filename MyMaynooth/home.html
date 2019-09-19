@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>	
+
+
+<script src="Slideshow.js"></script>
+
+
+<link href="CSS/HomeStyle.css" rel="stylesheet" type="text/css" />
+<link href="CSS/MenuLogin.css" rel="stylesheet" type="text/css" />
+
+
+
+
+</head>
+
+<body>
+
+
+<div id="Holder">
+
+<div id="Header">
+
+<div id="logout">
+<button id="btnLogout" class="btn btn-action"><span>Log Out   </span></button>
+</div>
+</div>
+<div id="NavBar">
+<nav>		
+	<ul>			
+		
+		<li id="current"><a href="home.html">Home</a></li>			
+		
+		<li><a href="assignment.html">Assignments</a></li>
+		
+		<li><a href="#">Forum</a>
+		<ul>
+				<li><a href="Yearone.html">Year 1<li/>
+				<li><a href="Yeartwo.html">Year 2<li/>
+				<li><a href="Yearthree.html">Year 3<li/>
+				<li><a href="Yearfour.html">Year 4<li/>
+				<li><a href="Masters.html">Masters<li/>
+		</ul>
+		</li>
+		
+		
+		
+		<li><a href="https://2017.moodle.maynoothuniversity.ie/login/index.php">Moodle</a></li>			
+		
+		
+									
+	
+	</ul>
+	
+	
+</nav>
+	
+	</div>
+	
+	<div id="Content">
+<div id="userDetails">
+
+
+</div>     
+
+
+<div id="container1">
+	
+	<img src="Images/Slide1.jpg" id="img"/>
+	
+	<div id="left_holder"><img onClick="slide(-1)" class="left" src="Images/left.png"/></div>
+	
+	<div id="right_holder"><img onClick="slide(1)" class="right" src="Images/right.png" /></div>
+	</div>
+		
+	<div id="toDoList">
+        <div id="homeButtons">
+		<button id="button1" onclick = hideAssignments()> Hide assignments due </button>
+		
+		</div>
+		<ol id="assignments">
+		
+		</ol>
+		
+
+	</div>
+	
+	
+	
+			
+	<ol>			
+	</ol>	
+	<ul>		
+	<button id="btnSignUp" class="btn btn-ation" hidden="hidden">Sign Up</button>	
+	<button id="btnLogin"  class="btn btn-action" hidden="hidden">Login</button>	
+	</ul>
+</div>	
+
+	<div id="Footer">All rights reserved to the team at MyMaynooth &reg; </div>	
+	
+	
+	
+	
+<script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
+<script src="app.js"></script>
+
+	</body>
+	</html>

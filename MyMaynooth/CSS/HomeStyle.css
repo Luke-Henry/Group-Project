@@ -1,0 +1,298 @@
+body {
+	margin: 0;
+	padding: 0;
+	
+	
+}
+#Holder {
+	width: 1500px;
+	Height: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 21px;
+	margin-bottom: 21px;
+}
+#Header{
+	Height: 70px;
+	background-image: url(../Images/logo.png);
+	background-repeat: no-repeat;
+	margin-bottom: 11px;
+	
+}
+#NavBar{
+	height: 55px;
+	background-color: rgb(13,13,13);
+	width: auto;
+}
+
+
+
+
+#Content{
+	height:auto;
+	min-height: 600px;
+	clear:both;
+	max-width:1500px;
+	overflow:auto;
+	text-align: center;
+	background-image: url(../Images/Concrete.png);
+	background-repeat: repeat;
+}
+
+#Footer{
+	background-color: transparent;
+	height:auto;
+	color: black;
+	text-align: center;
+}
+h1 {
+	margin:0;
+	font-family: Arial, Helvetica, sans-serif;
+	color: grey;
+	font-weight:lighter;
+        font-style:bold;
+	
+}
+h2{
+	margin:0;
+	font-family:Arial, Helvetica, sans-serif;
+	color: black;
+	font-weight:lighter;
+	
+}
+h3{
+	margin:0;
+	font-family:Arial, Helvetica, sans-serif;
+	color: #fff;
+	font-weight: lighter;
+	
+}
+
+
+
+/*
+=================================TO DO LIST STYLE==============================================
+*/
+
+form {
+display: inline-block;
+position:relative;
+margin : 0;
+
+}
+
+
+#button{
+display: inline-block;
+background-color:#fc999b;
+color:#ffffff;
+border-radius: 5px;
+text-align:center;
+margin-top:2px;
+padding: 5px 15px;
+position:relative;
+}
+
+#button:hover{
+cursor: pointer;
+opacity: .8;}
+
+ol {padding-left: 20px;
+list-style-type:none;
+}
+	
+ol li {padding: 5px;
+		color:#000;
+		list-style-type:none;
+}
+
+ol li:nth-child(even){background: grey;
+					  color: white;}
+
+.strike{text-decoration: line-through;}
+
+li:hover{
+  cursor: pointer;
+ }
+
+/*
+==============================SlideShow==============================
+*/
+
+
+
+
+#container1 {
+	height: 400px;
+	width: 99%;
+	position: relative;
+	margin: 20px auto;
+	border: 1px solid grey;
+	background-color: transparent;
+	top:-20px;
+	
+}
+
+
+img {
+	height:400px;
+	width:100%;
+	
+}
+
+
+#left_holder:hover{
+	opacity:.8;
+	cursor:pointer;
+	
+}
+
+
+
+#left_holder{
+	height: 350px;
+	width:100px;
+	
+	position:absolute;
+	left: 0px;
+	top:0px;
+	
+	
+}
+
+#right_holder:hover{
+	opacity:.8;
+	cursor:pointer;
+	
+}
+
+
+#right_holder{
+	height: 350px;
+	width: 100px;
+	
+	position:absolute;
+	right: 0px;
+	top:0px;
+	
+}
+.left{
+	height:35px; 
+	width:35px;
+	position:absolute;
+	top:40%;
+	left:0px;
+}
+.right{
+	height:35px; 
+	width:35px;
+	position:absolute;
+	top:40%;
+	right:0px;
+}
+
+
+
+
+
+input[type=text] {
+    width: auto;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+    background-image: url('../Images/searchicon.png');
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 40px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
+
+
+#userDetails{
+	font-size: 15px;
+	margin: auto;
+    width: 98%;
+    padding: 10px;
+	background-color:rgba(0,0,0,.1);
+	text-align: center;
+	
+
+}
+
+
+	
+#btnLogout {
+  right:36px;
+  height:60px;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: rgb(13,13,13);
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 24px;
+  padding: 20px;
+  width: 200px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+  position:absolute;
+  top:40px;
+}
+
+#btnLogout span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+#btnLogout span:after {
+  content: url('../Images/power.png');
+  position: absolute;
+  opacity: 0;
+  top: 10px;
+  bottom:10px;
+  right: -50px;
+  transition: 0.5s;
+}
+
+#btnLogout:hover span {
+  padding-right: 35px;
+  color:transparent;
+  background-color:transparent;
+}
+
+#btnLogout:hover span:after {
+  opacity: 1;
+  right: 29px;
+  
+}
+#assignments{
+	font-size:35px;
+	display: inline-block;
+  color: #2b2b2b;
+  text-shadow: 3px 3px 0px rgba(0,0,0,0.1), 7px 7px 0px rgba(0,0,0,0.05);
+  border: 1px black;
+}
+#homeButtons{
+	
+	
+}
+#button1{
+display: inline-block;
+background-color:#fc999b;
+color:#ffffff;
+border-radius: 5px;
+text-align:center;
+margin-top:2px;
+padding: 5px 15px;
+position:relative;
+}
+
+#button1:hover{
+cursor: pointer;
+opacity: .8;}

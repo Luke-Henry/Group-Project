@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Date Manipulation Attempt</title>
+</head>
+<body>
+<p><strong>Assignment List</strong></p>
+<!--calling for firebase import -->
+<script src ="https://www.gstatic.com/firebasejs/live/3.1/firebase.js"></script>
+<div id ="DateHere">
+    <button id="newDateButton" onclick=newDate()>Create New info</button>
+    <button id="searchDate" onclick=searchDate()>Search info</button>
+</div>
+<!-- info shows here -->
+<div id = "DateDate">
+
+</div>
+<div> <!--div element-->
+    <script>
+        var config = {          //temporary database for debugging - these should be replaced with our primary Firebase auth before being pushed live
+            apiKey: "AIzaSyBMTPBYyWEqkXo0drDesTPu4tt6Iwp0b7o",
+            authDomain: "mymaynooth-51166.firebaseapp.com",
+            databaseURL: "https://mymaynooth-51166.firebaseio.com",
+            storageBucket: "mymaynooth-51166.appspot.com",
+            messagingSenderId: "903215281100"
+        };
+
+        firebase.initializeApp(config);
+
+        //new reference variable
+        var datt = document.getElementById("DateDate");
+        var dbRef;
+        var count = 0;
+        dbRef = firebase.database().ref().child("Dates");
+
+        //trying to align data in regards to sorting it by the parameter date
+        dbRef.orderByChild("Date").on("value", function (snapshot) {                 //opens the contents of Module in a 'snapshot'
+            datt.innerText = "";
+            snapshot.forEach(function (childSnapShot) {         //opens each key contained in Module in order to access the module data in child snapshots
+                assignmentLinks(childSnapShot.child("AssignName").val(),childSnapShot.child("ModCode").val(), childSnapShot.child("Date").val());   //pulls the module names and codes out of the child snapshots and passes them to assignmentLinks() to be displayed
+                count++;
+            });
+        });
+
+        //function newDate
+        function newDate(){ //create input fields for the info on the assignments
+            document.getElementById("DateHere").innerHTML="Assignment: <input type='text' id='AssignName' "+
+                "value= 'Assignment Name:'><br>Module Code: <input type = 'text' id='ModCode' "+
+                "value= 'Module Code:'><br>Date:<input type = 'text' id= 'Date' "+
+                "value= 'DateTime'><br><input type='submit' onclick=createDate()>";
+        }
+
+        function createDate(){ //taking in user input and sending it into the database
+            var AName = document.getElementById("AssignName").value;
+            var MCode = document.getElementById("ModCode").value;
+
+            //current time
+            var exer = new Date();
+            exer = exer.valueOf();
+            var DatTime = checkDate(document.getElementById("Date").value)+exer;
+
+            //alert(DatTime); //debugging
+
+            key = firebase.database().ref("Dates").push({
+                AssignName: AName,
+                ModCode: MCode,
+                Date: DatTime
+            }).key;
+            alert("Submitted Successfully!");   //debugging - all alerts to be replaced
+            document.getElementById("DateHere").innerHTML="<button id='newDateButton'onclick=newDate()>Add info</button> " +
+                "<button id='searchDate' onclick=searchDate()>Search info</button>";
+            //restores the 'Add Module' button and removes the new module input fields
+        }
+
+        function assignmentLinks(AssignName, ModCode, DatTime) {
+            var copy = new Date(convertMilli(DatTime));
+            datt.innerHTML += "<br>Assignment Name: \t" + AssignName + "<br> Module Code: \t" + ModCode +
+                "<br> Due Date: \t"+ convertMilli(DatTime).toDateString() + "<br>" + showRemaining(DatTime) +"<br><button id=showAssignments onclick='loadAssignments(count)'>Show Replies</button><br>"
+
+        }
+
+        function makeDate(x) {					//converts string of form yyyy/mm/dd into a date object
+            var y = new Date();
+            y.setFullYear(parseInt(x.substring(0,4)),parseInt(x.substring(5,7))-1,parseInt(x.substring(8)));
+            return y;
+        }
+
+        /*function checkDate(d){
+         var x = new Date(d); //converts it into date form, leading to conversion in milliseconds
+         x = x.getMilliseconds();
+
+         //**************************************************************************************
+
+         //now we get the millisecond of our current
+         var y = new Date(); //variable y
+         y = y.getMilliseconds();
+
+         if(y < x){
+         return null;
+         }
+
+         x = x.toDateString();
+         return x;
+         }*/
+
+        //checking in milliseconds now, wanting to return to an int and putting into a database
+        //1000 seconds in a millisecond, 60,000
+        function checkDate(d) {					//ensures that due date has not already passed
+            var x = new Date();
+            x = x.valueOf();       //converting to milliseconds, current date
+
+            var y = makeDate(d);
+            //alert(y); //for debugging
+            var y = y.valueOf();  //date set by user
+
+            var res = y-x;
+            //checker
+            if(res < 0){
+                return "Overdue.";
+            }
+            //alert(y);
+            return res;
+        }
+
+        //converting milliseconds to a date
+        function convertMilli(f){
+            var g = new Date();
+            g.valueOf();
+
+            if(f < g){
+
+                return "Overdue";
+            }
+
+            var res = new Date(f);
+
+            return res;
+        }
+
+
+        //give the timeframe from which the list is due
+        function showRemaining(d) {
+            today = new Date(); // Date object
+
+            BigDay = new Date(d); // date expiry
+            msPerDay = 24 * 60 * 60 * 1000 ; // amount of secs in a day.
+            timeLeft = (BigDay.getTime() - today.getTime()); // date expiry minus the current date .
+
+            if(timeLeft < 0){
+                return "EXPIRED.";
+            }
+
+            e_daysLeft = timeLeft / msPerDay;
+            daysLeft = Math.floor(e_daysLeft);
+            e_hrsLeft = (e_daysLeft - daysLeft)*24;
+            hrsLeft = Math.floor(e_hrsLeft);
+            minsLeft = Math.floor((e_hrsLeft - hrsLeft)*60);
+            return "Time Left: \t" + daysLeft + " days, " + hrsLeft +" hours & " + minsLeft + " minutes left.";
+
+
+        }
+
+    </script>
+</div>
+</body>
+</html>

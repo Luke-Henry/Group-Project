@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<link href="CSS/Layout.css" rel="stylesheet" type="text/css" />
+<link href="CSS/MenuLogin.css" rel="stylesheet" type="text/css" />
+<link href="CSS/Menu.css" rel="stylesheet" type="text/css">
+
+
+	<script src="https://www.gstatic.com/firebasejs/3.5.0/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/3.5.0/firebase-auth.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/3.5.0/firebase-database.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/3.5.0/firebase-messaging.js"></script>
+
+
+
+
+</head>
+
+
+<body>
+<div id="Holder">
+
+
+<div id="Header">
+</div>
+<div id="NavBar">
+<nav>
+		<ul>
+			<li><a href="index.html">Log in</a></li>
+			<li id="current"><a href="register.html">Register</a></li>
+			<li><a href="help.html">Forgotten Password</a></li>
+
+            
+
+		
+		<ul/>
+
+</nav>
+
+
+</div>
+<div id="Content">
+
+<h1>Register Account</h1>
+	<div id="container">
+      <div id=formcont>
+        <p><input id="userName" type="text" name="userName" value="" class="username" placeholder="Full Name"></p>
+        <p><input id="txtEmail" type="text" name="Email" value="" class="user" placeholder="E-mail address"></p>
+        <p><input id="txtPassword" type="password" name="password" value="" class="pass" placeholder="Password"></p>
+          <button id="btnSignUp" class="btn btn-ation">Sign Up</button>
+<button id="btnLogin"  class="btn btn-hide"  hidden="hidden">Login</button>
+<button id="btnLogout" class="btn btn-ation" hidden="hidden">Log Out</button>
+                 
+
+
+
+
+
+
+
+
+
+
+
+      </div>
+     </div>
+	<div id="Footer">All rights reserved to the team at MyMaynooth &reg; </div>
+</div>
+
+
+
+
+
+<script src="HomeJs.js"></script>
+</div>
+
+</body>
+
+
+
+
+</html>

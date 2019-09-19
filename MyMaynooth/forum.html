@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://www.gstatic.com/firebasejs/3.5.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.5.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.5.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.5.0/firebase-messaging.js"></script>
+    <script src="jquery-3.1.1.min.js"></script>
+
+
+    <link href="CSS/HomeStyle.css" rel="stylesheet" type="text/css" />
+    <link href="CSS/MenuLogin.css" rel="stylesheet" type="text/css" />
+    <link href="CSS/threadStyle.css" rel="stylesheet" type="text/css" />
+
+
+</head>
+
+<body>
+
+<div id="Holder">
+    <div id="Header">
+        <div id="logout">
+            <button id="btnLogout" class="btn btn-action"><span>Log Out   </span></button>
+        </div>
+    </div>
+    <div id="NavBar">
+        <nav>
+            <ul>
+
+                <li ><a href="home.html">Home</a></li>
+
+                <li><a href="assignment.html">Assignments</a></li>
+
+                <li id="current"><a href="#">Forum</a>
+                    <ul>
+                        <li><a href="Yearone.html">Year 1<li/>
+                        <li><a href="Yeartwo.html">Year 2<li/>
+                        <li><a href="Yearthree.html">Year 3<li/>
+                        <li><a href="Yearfour.html">Year 4<li/>
+                        <li><a href="Masters.html">Masters<li/>
+                    </ul>
+                </li>
+
+
+
+                <li><a href="https://2017.moodle.maynoothuniversity.ie/login/index.php">Moodle</a></li>
+
+
+
+            </ul>
+
+
+        </nav>
+
+    </div>
+
+    <div id="Content">
+
+        <h1 id="head"></h1><br>
+
+
+        <div id="new"><button class="newButton" onclick="newPost()">New Post</button></div><br>
+
+        <div id="thread"></div>
+        <br><br>
+
+
+    </div>
+
+    <ul>
+        <button id="btnLog" class="btn btn-action" hidden="hidden">Log Out</button>
+        <button id="btnSignUp" class="btn btn-ation" hidden="hidden">Sign Up</button>
+        <button id="btnLogin"  class="btn btn-action" hidden="hidden">Login</button>
+    </ul>
+
+</div>
+
+
+<div id="Footer">All rights reserved to the team at MyMaynooth &reg; </div>
+</div>
+</body>
+
+<script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script>
+<script src="app.js"></script>
+<script>
+
+	//parse URL
+    var x;
+    x = window.location.href.substring(window.location.href.indexOf("?")+1,window.location.href.indexOf("&"));
+    const year = x.replace(/%20/g,' ');
+    x = window.location.href.substring(window.location.href.indexOf("&")+1,window.location.href.indexOf("!"));
+    const module = x.replace(/%20/g,' ');
+    x = window.location.href.substring(window.location.href.indexOf("!")+1,window.location.href.length);
+    const assignment = x.replace(/%20/g,' ');
+
+    document.getElementById("head").innerHTML=assignment;	//sets the header to the assignment title
+
+    var posts = document.getElementById("thread");       //where the posts will be displayed, created a variable as this will be used often
+    var dbRef;                                           //this variable will hold a database reference, our 'current position' in the database
+    var counter = 0;
+    var key;
+
+    dbRef = firebase.database().ref().child(module);     //sets the reference position
+
+
+	
+
+    /*
+     * This listener dynamically retrieves the data at our current reference position
+     */
+
+    dbRef.on("value", function (snapshot) {      
+	
+        posts.innerText = "";
+        snapshot.forEach(function (childSnapShot) {         
+            postLinks(childSnapShot.child("assignment").val(),childSnapShot.child("date").val(), counter, childSnapShot.child("email").val());   //pulls the data and passes it to postLinks() to be displayed
+            counter++;
+
+        });
+		
+    });
+
+	
+	//creates an input box where the user can type their comment, as well as a 'save' and a 'cancel' button
+    function newPost() { 		
+        document.getElementById("new").innerHTML = "<div class='commentArea'> <textarea id='newCommentBox' rows='4' cols='80'></textarea> </div> <div id='newThread'> <button class='newButton' id='newPost' onclick=createPost()>save</button> </div>";
+    }
+	
+
+	//pushes the user's input, their email address and the current date & time into the database
+    function createPost() {
+	
+        var timestamp = new Date().getTime();
+        var newPost = sanitizeInput(document.getElementById("newCommentBox").value);
+		
+        if(newPost == null | newPost.length > 100) {
+            alert("Post Invalid");
+        }
+        else {
+            key = firebase.database().ref(module).push({
+                assignment:newPost,
+                date:timestamp,
+                email:email
+            }).key;
+            alert("Submitted Successfully!");
+            document.getElementById("new").innerHTML="<button class='newButton' onclick='newPost()'>New Post</button>";
+        }
+		
+    }
+
+
+
+    /*
+     * This function writes the posts, email addresses and datetimes that we have pulled from the database to the screen
+     */
+
+    function postLinks(assignment,timestamp,temp,myemail) {
+	
+        var x = new Date(timestamp);
+        x = x.toString();
+        var myDate = formatDate(x.substring(4,7),x.substring(8,10),x.substring(13,15));
+
+        assignment = escapeHtml(assignment);
+        assignment = assignment.replace(/[\n]/g,'<br>');
+
+
+        posts.innerHTML += "<br><div id='comment'><div id='meta'><div id='email1'>"+myemail+"</div><div id='date1'>" + myDate + "&nbsp" + x.substring(16,21) + "</div></div>" + assignment + "</div><br>";
+    }
+	
+	
+	//replaces special characters with hard coded characters
+    function escapeHtml(text) {
+	
+        var map = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#039;'
+        };
+
+        return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+    }
+	
+
+	//transforms a date into a more readable format
+    function formatDate(month,day,year) {
+	
+        var newMonth;
+        if(month == "Jan")
+            newMonth = "01";
+        else if(month == "Feb")
+            newMonth = "02";
+        else if(month == "Mar")
+            newMonth = "03";
+        else if(month == "Apr")
+            newMonth = "04";
+        else if(month == "May")
+            newMonth = "05";
+        else if(month == "Jun")
+            newMonth = "06";
+        else if(month == "Jul")
+            newMonth = "07";
+        else if(month == "Aug")
+            newMonth = "08";
+        else if(month == "Sep")
+            newMonth = "09";
+        else if(month == "Oct")
+            newMonth = "10";
+        else if(month == "Nov")
+            newMonth = "11";
+        else
+            newMonth = "12";
+        return (day + "/" + newMonth + "/" + year);
+		
+    }
+
+	
+    function searchModules() {  
+        //to be written
+    }
+
+    
+    function sanitizeInput(s) {             //cleans up user input
+        return s.replace(/^[\W\s]/g, '');   //removes everything but letters, numbers and spaces
+    }
+
+    
+    function makeDate(x) {					//converts string of form yyyy/mm/dd into a date object
+        var y = new Date();
+        y.setFullYear(parseInt(x.substring(0,4)),parseInt(x.substring(5,7))-1,parseInt(x.substring(8)));
+        return y;
+    }
+	
+	
+    function checkDate(d) {					//ensures that due date has not already passed
+	
+        var x = new Date();					
+        var y = makeDate(d);				
+        if(y < x) {				
+            return null;
+        }
+		
+        return d;
+    }
+    
+
+</script>
+
+
+
+</body>
+</html>

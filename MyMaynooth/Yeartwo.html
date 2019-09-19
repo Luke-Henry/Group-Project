@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://www.gstatic.com/firebasejs/3.5.0/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/3.5.0/firebase-auth.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/3.5.0/firebase-database.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/3.5.0/firebase-messaging.js"></script>
+	<script src="jquery-3.1.1.min.js"></script>
+
+
+	<link href="CSS/HomeStyle.css" rel="stylesheet" type="text/css" />
+	<link href="CSS/MenuLogin.css" rel="stylesheet" type="text/css" />
+	<link href="CSS/forumStyle.css" rel="stylesheet" type="text/css" />
+
+
+
+</head>
+
+<body>
+
+<div id="Holder">
+	<div id="Header">
+		<div id="logout">
+			<button id="btnLogout" class="btn btn-action"><span>Log Out   </span></button>
+		</div>
+	</div>
+	<div id="NavBar">
+		<nav>
+			<ul>
+
+				<li ><a href="home.html">Home</a></li>
+
+				<li><a href="assignment.html">Assignments</a></li>
+
+				<li id="current"><a href="#">Forum</a>
+					<ul>
+						<li><a href="Yearone.html">Year 1<li/>
+						<li><a href="Yeartwo.html">Year 2<li/>
+						<li><a href="Yearthree.html">Year 3<li/>
+						<li><a href="Yearfour.html">Year 4<li/>
+						<li><a href="Masters.html">Masters<li/>
+					</ul>
+				</li>
+
+
+
+				<li><a href="https://2017.moodle.maynoothuniversity.ie/login/index.php">Moodle</a></li>
+
+
+
+			</ul>
+
+
+		</nav>
+
+	</div>
+
+	<div id="Content">
+
+		<h1>2nd Year Modules</h1>
+
+
+		<input type="text" name="search" placeholder="Search..">
+		</br>
+		</br>
+		<div id="newModule">
+			<button id="newThread" onclick=newModule()>Start New Thread</button>
+		</div>
+		<br>
+		<div id="container2">
+			<div id="modules"></div>
+		</div>
+
+
+
+	</div>
+
+	<ul>
+		<button id="btnLog" class="btn btn-action" hidden="hidden">Log Out</button>
+		<button id="btnSignUp" class="btn btn-ation" hidden="hidden">Sign Up</button>
+		<button id="btnLogin"  class="btn btn-action" hidden="hidden">Login</button>
+	</ul>
+
+</div>
+
+
+<div id="Footer">All rights reserved to the team at MyMaynooth &reg; </div>
+
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script>
+<script>
+
+
+	var config = {          
+		apiKey: "AIzaSyBe6l8LXRqTdz55CX7fz0R1ohaonBSPpoU",
+		authDomain: "testproject-beb13.firebaseapp.com",
+		databaseURL: "https://testproject-beb13.firebaseio.com",
+		storageBucket: "testproject-beb13.appspot.com",
+		messagingSenderId: "492652354318"
+	};
+
+	firebase.initializeApp(config);		//connect
+
+
+	const year = "ModuleYear2";
+
+	var modules = document.getElementById("modules");       //where the modules will be displayed, created a variable as this will be used often
+	var dbRef;                                              //this variable will hold a database reference, our 'current position' in the database
+	var counter = 0;
+	var key;
+
+
+
+	dbRef = firebase.database().ref().child("ModuleYear2");      //sets the reference position
+
+
+
+
+	/*
+	 * This function dynamically retrieves the data at our current reference position, i.e. the data in 'Module'.
+	 * The children in Module are stored as unique keys in the form '-KV7xWNwmF6W0DJMn-8n' in order to avoid duplicates and overwriting.
+	 * These key fields must be opened to access the actual module names and codes
+	 */
+	dbRef.on("value", function (snapshot) {                 //opens the contents of Module in a 'snapshot'
+		modules.innerText = "";
+		snapshot.forEach(function (childSnapShot) {         //opens each key contained in Module in order to access the module data in child snapshots
+			assignmentLinks(childSnapShot.child("moduleCode").val(), childSnapShot.child("assignmentName").val(), childSnapShot.child("dueDate").val(), counter);   //pulls the module names and codes out of the child snapshots and passes them to assignmentLinks() to be displayed
+			counter++;
+
+		});
+	});
+
+
+	btnLogout.addEventListener('click', e => {		//logout function
+
+
+
+		alert("Signing Out");
+
+		firebase.auth().signOut();
+
+		window.location.href = 'index.html' ;
+
+	});
+
+	function fixDate(dueDate) {
+		var x = dueDate.substring(0,4);
+		var y = dueDate.substring(5,7);
+		var z = dueDate.substring(8);
+		return (z + "/" + y + "/" + x);
+	}
+
+	function newModule() {  //creates input fields and a submit button that allow the user to add a new module to the forum
+		var x = document.getElementById("newModule");
+		x.innerHTML="Module Code: <br><input type='text' id='moduleCode' " +
+				"placeholder='Code'><br>Assignment Name: <br><input type='text' id='assignmentName' " +
+				"placeholder='Name'><br>Due Date: ";
+		var y = document.createElement("INPUT");
+		y.id="date";
+		y.setAttribute("type", "date");
+		y.setAttribute("value", "2017-01-01");
+		x.appendChild(y);
+		x.innerHTML+="<br><br><input type='submit' onclick=createModule()>&nbsp<input type='submit' value='Cancel' onclick=cancel()>";
+
+	}
+
+
+
+	function cancel() {
+		document.getElementById("newModule").innerHTML="<button id='newThread' onclick=newModule()>Start New Thread</button>";
+	}
+
+
+
+
+	function createModule() {   //takes in user input, validates it and sends it to database
+
+		var mCode = (sanitizeInput(document.getElementById("moduleCode").value)).toUpperCase();     //removes special characters, see function below
+		var assignmentName = sanitizeInput(document.getElementById("assignmentName").value);
+		assignmentName = assignmentName.charAt(0).toUpperCase() + assignmentName.slice(1);
+		var myDate = checkDate(document.getElementById("date").value);
+
+		if(myDate == null) {
+			alert("Invalid Date - already passed!");
+		}
+		else if (mCode == null | mCode.length > 6 | mCode.length < 5 | mCode == "Code") {      //checking module code
+			alert("Invalid Module Code");
+		}
+		else if (assignmentName == "Name" | assignmentName.length > 100) {   //checking module name, allowing NULL values here
+			alert("Invalid Assignment Name (max 100 characters)");
+		}
+		else {
+			key = firebase.database().ref("ModuleYear2").push({      //pushing module information into database under the JSON field 'Module'
+				moduleCode:mCode,
+				assignmentName:assignmentName,
+				dueDate:myDate
+			}).key;     //storing key in a variable just in case
+
+			alert("Submitted Successfully!");   
+			document.getElementById("newModule").innerHTML="<button id='newThread' onclick=newModule()>Start New Thread</button>";
+
+			location.reload();
+
+
+		}
+	}
+
+
+
+
+	/*
+	 * This function writes the module codes and names that we have pulled from the database to the screen,
+	 * as well as a button that will show assignments for each respective module.
+	 */
+	function assignmentLinks(moduleCode, assignmentName, dueDate, temp) {
+		var x;
+		var y;
+		var z;
+		var niceDate = fixDate(dueDate);
+		y = "capsule" + temp;
+
+		modules.innerHTML += "<div class='capsuleClass' id='capsule" + temp + "'><br><div class = 'modules'><ul2 id='getModCode" + temp + "'>" +  moduleCode + "</ul2><button id=showAssignments" + temp + " onclick='loadAssignments(" + temp + ")'>+" +
+				"</button>" + "</div><div class='assignments' id='assignments" + temp + "' style='visibility:hidden;position:fixed;z-index: 0;'><ul4 onclick='loadThread("+temp+")'>" + "<ul9 id='getAssName" + temp + "' onclick='loadThread(" + temp + ") '>" + assignmentName + "</ul9>,&nbsp&nbsp" + "Due: " + niceDate +
+				"</ul4><div id='messages" + temp + "' style='visibility:hidden;position:fixed;z-index: 0;'>" +
+				"</div></div><br></div>";
+
+
+		if((x = checkExists(moduleCode, temp)) != -1) {
+
+
+			document.getElementById(y).style.visibility = "hidden";
+			document.getElementById(y).style.position = "fixed";
+			z = "assignments" + x;
+
+			document.getElementById(z).innerHTML += "<br><ul5 onclick='loadThread(" + temp + ") '>" + "<ul3 id='getAssName" + temp + "' onclick='loadThread(" + temp + ") '>" + assignmentName + "</ul3>,&nbsp&nbsp" + "Due: " + niceDate +
+					"</ul5><div id='messages" + temp + "' style='visibility:hidden;position:fixed;z-index: 0;'>" +
+					"</div></div></div>";
+
+		}
+
+		if(checkDate(dueDate) == null) {
+			document.getElementById(y).style.visibility = "hidden";
+			document.getElementById(y).style.position = "fixed";
+		}
+
+	}
+	
+	
+	//transforms date into usable format
+	function fixDate(dueDate) {
+		var x = dueDate.substring(0,4);
+		var y = dueDate.substring(5,7);
+		var z = dueDate.substring(8);
+		return (z + "/" + y + "/" + x);
+	}
+	
+	
+	//checks for duplicate modules
+	function checkExists(moduleCode, temp) {
+
+		var x;
+		var elementExists = document.getElementById("getModCode0");
+
+		for (var y = 0; y <= temp; y++) {
+			x = "getModCode" + y;
+
+			if (document.getElementById(x).innerHTML == moduleCode & y != temp) {
+				return y;
+			}
+		}
+
+		return -1;
+	}
+
+
+	/*
+	 * This function will load in all corresponding assignments from the database when user clicks on a module.
+	 */
+
+
+	function loadAssignments(temp) {
+	
+		var x = "assignments" + temp;
+		var y = "showAssignments" + temp;
+		
+		if(document.getElementById(y).innerHTML=="+") {
+			document.getElementById(x).style.visibility = "visible";
+			document.getElementById(x).style.position = "static";
+			document.getElementById(y).innerHTML = "-";
+		}
+		else {
+			document.getElementById(x).style.visibility = "hidden";
+			document.getElementById(x).style.position = "fixed";
+			document.getElementById(y).innerHTML = "+";
+		}
+
+
+	}
+
+	
+	//sends user to the forum page, sends relevant information via URL
+	function loadThread(temp) {
+		var x = "getModCode" + temp;
+		var y = "getAssName" + temp;
+		window.location.href='forum.html?' + year + "&" + document.getElementById(x).innerHTML + temp + "!" + document.getElementById(y).innerHTML;
+	}
+
+
+	function searchModules() {  
+		//to be written
+	}
+
+
+	function sanitizeInput(s) {             //clears up user input
+		return s.replace(/^[\W\s]/g, '');   //removes everything but letters, numbers and spaces
+	}
+	
+	
+	function makeDate(x) {					//converts string of form yyyy/mm/dd into a date object
+		var y = new Date();
+		y.setFullYear(parseInt(x.substring(0,4)),parseInt(x.substring(5,7))-1,parseInt(x.substring(8)));
+		return y;
+	}
+	
+	
+	function checkDate(d) {					//ensures that due date has not already passed
+	
+		var x = new Date();
+		var y = makeDate(d);
+		if(y < x) {
+			return null;
+		}
+		return d;
+		
+	}
+</script>
+
+</body>
+</html>

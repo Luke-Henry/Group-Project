@@ -1,0 +1,143 @@
+body {
+	margin: 0;
+	padding: 0;
+	
+	
+}
+#Holder {
+	width: 980px;
+	Height: auto;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 21px;
+	margin-bottom: 21px;
+	
+}
+#Header {
+	Height: 70px;
+	background-image: url(../Images/logo.png);
+	background-repeat: no-repeat;
+	margin-bottom: 11px;
+}
+#NavBar{
+	height: 60px;
+	background-color: rgb(13,13,13);
+}
+#Content{
+	height:382px;
+	clear:both;
+	overflow:auto;
+	text-align: center;
+	background-image: url(../Images/Background.jpg);
+	background-size: 980px 400px;
+	background-repeat: no-repeat;
+	
+}
+#container{
+  background: transparent;
+  border: none;
+  height: auto;
+  margin: 20px auto 0;
+  width: 600px ;
+  text-align: center;
+}
+input {
+	background-color: rgba(0,0,0,.1);
+	color: #FFF;
+	border: none;
+	
+}
+
+ #formcont {
+  position: relative;
+  width: 250px;
+  margin: 0 auto;
+  background: rgba(130,130,130,.3);
+  padding: 20px 22px;
+  border: 1px solid;
+  border-top-color: rgba(255,255,255,.4);
+  border-left-color: rgba(255,255,255,.4);
+  border-bottom-color: rgba(60,60,60,.4);
+  border-right-color: rgba(60,60,60,.4);
+  }
+::-webkit-input-placeholder { color: #ccc; text-transform: uppercase; }
+::-moz-placeholder { color: #ccc; text-transform: uppercase; }
+:-ms-input-placeholder { color: #ccc; text-transform: uppercase; }
+
+
+
+
+
+
+#btnLogin{
+        min-height:20px;
+        min-width:170px;
+	background-color: rgba(0,0,0,.2);
+	
+	font-size: 10px;
+	color: #FFF;
+	text-transform: uppercase;
+	cursor: pointer;
+}
+#btnLogin1{
+        min-height:20px;
+        min-width:170px;
+	background-color: rgba(0,0,0,.2);
+	
+	font-size: 10px;
+	color:#FFF;
+	text-transform: uppercase;
+	cursor: pointer;
+}
+#btnSignUp{
+        min-height:20px;
+        min-width:170px;
+	background-color: rgba(0,0,0,.2);
+	
+	font-size: 10px;
+	color: #FFF;
+	text-transform: uppercase;
+	cursor: pointer;
+}
+#btnHelp{
+        min-height:20px;
+        min-width:170px;
+	background-color: rgba(0,0,0,.2);
+	
+	font-size: 10px;
+	color:#FFF;
+	text-transform: uppercase;
+	cursor: pointer;
+}
+
+
+
+
+
+#Footer{
+	background-color: transparent;
+	height:auto;
+	color: white;
+	text-align: center;
+}
+h1 {
+	margin:0;
+	font-family: Arial, Helvetica, sans-serif;
+	color: #ccc;
+	font-weight:lighter;
+	
+}
+h2{
+	margin:0;
+	font-family:Arial, Helvetica, sans-serif;
+	color: #999;
+	font-weight:lighter;
+	
+}
+h3{
+	margin:0;
+	font-family:Arial, Helvetica, sans-serif;
+	color: #fff;
+	font-weight: lighter;
+	
+}

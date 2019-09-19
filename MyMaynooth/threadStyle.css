@@ -1,0 +1,75 @@
+#meta {
+    /*
+    font-size:small;
+    font-weight:200;
+    margin-left:30%;
+    margin-right:30%;
+    border:dashed;
+    border-width:1px;
+    */
+    padding:5px;
+}
+#comment {
+    padding:8px;
+    background-image: url('../Images/Concrete.png');
+    margin-left:20%;
+    margin-right:20%;
+
+    border-radius: 5px;
+    border: 2px solid #b6b6b6;
+    font-size: 0.9rem;
+}
+.modules {
+
+    margin-right:36%;
+}
+.assignments {
+    /*
+    margin-left:30%;
+    margin-right:30%;
+    border:dashed;
+    border-width:1px;
+    */
+}
+.md {
+
+}
+#thread {
+    background-color:white;
+    margin-left:20%;
+    margin-right:20%;
+    border-radius: 10px;
+    border: 1px solid #e1e1e1;
+}
+#thread:empty{
+    border:none;
+}
+#email1 {
+    font-size: 1.2rem;
+}
+#date1 {
+    color: #121212;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+}
+#head {
+    font-family: Arial, Helvetica, sans-serif;
+    color: black;
+    font-weight: lighter;
+}
+.newButton {
+    cursor: pointer;
+    opacity: .8;
+    display: inline-block;
+    background-color: #fc999b;
+    color: #ffffff;
+    border-radius: 5px;
+    text-align: center;
+    margin-top: 2px;
+    padding: 5px 15px;
+    position: relative;
+}
+#newCommentBox {
+    width: inherit;
+}

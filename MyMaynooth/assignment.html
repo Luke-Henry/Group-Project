@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>	
+	
+	<script src="https://www.gstatic.com/firebasejs/3.5.0/firebase-app.js"></script>	
+	<script src="https://www.gstatic.com/firebasejs/3.5.0/firebase-auth.js"></script>	
+	<script src="https://www.gstatic.com/firebasejs/3.5.0/firebase-database.js"></script>	
+	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.1.1.min.js"></script>
+	
+
+        
+<link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>	
+<link href="CSS/AssignmentStyle.css" rel="stylesheet" type="text/css" />
+<link href="CSS/MenuLogin.css" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+	<div id="Holder">
+	
+<div id="Header">
+<div id="logout">
+<button id="btnLogout" class="btn btn-action"><span>Log Out   </span></button>
+</div>
+</div>
+	
+	<div id="NavBar">
+
+<nav>	
+	<ul>	
+		<li ><a href="home.html">Home</a></li>	
+				<li id="current"><a href="assignment.html">Assignments</a></li>			
+					<li><a href="#">Forum</a>
+		<ul>
+				<li><a href="Yearone.html">Year 1<li/>
+				<li><a href="Yeartwo.html">Year 2<li/>
+				<li><a href="Yearthree.html">Year 3<li/>
+				<li><a href="Yearfour.html">Year 4<li/>
+				<li><a href="Masters.html">Masters<li/>
+		</ul>
+		</li>			
+						<li><a href="https://2017.moodle.maynoothuniversity.ie/login/index.php">Moodle</a></li>			
+													
+
+	</ul>
+</nav>
+
+	</div>
+
+
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.1.1.min.js"></script>
+	<div id="Content">
+
+	<h2>Assignment List</h2>
+	<div id="form1">
+		<form name="toDoList">
+			<h3>Module Code  :</h3>  
+			<input id="mCode" type="text" name="ModCode" placeholder="e.g. CS310"/>
+			<br>
+			</br>
+			<h3>Assignment Title  :</h3> 
+			<input id="assignmentName" type="text" name="AssTitle" placeholder="e.g. Assignment 4">
+			<br>
+			</br>
+			<h3>Due Date  :</h3>  			
+			<input id="myDate" type="date" name="DueDate" placeholder="Due Date">
+			<br>
+			</br>
+		
+    
+		<button id="button" onclick=addAssignment() >Add</button>
+		
+		</form>
+		
+		<div id="ShowAss">
+		<button id="button" onclick=showAssignments() >Show Assignments</button>
+		</div>
+		
+	</div>	
+		
+		
+		
+		<br/>
+		<ol id="assignments">
+		
+		</ol>
+ 		
+			
+
+					
+		<ul>	
+		
+	<button id="btnSignUp" class="btn btn-ation" hidden="hidden">Sign Up</button>	
+	<button id="btnLogin"  class="btn btn-action" hidden="hidden">Login</button>	
+	</ul>
+
+	
+				
+
+	</div>
+			
+			
+	<div id="Footer">All rights reserved to the team at MyMaynooth &reg; </div>
+	</div>
+
+	<script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
+	<script src="assignmentJS.js"></script>
+
+	
+	
+
+
+
+</body>
+</html>
